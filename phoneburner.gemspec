@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dennis@rigpasolutions.com"]
   spec.summary       = %q{API for PhoneBurner.com}
   spec.description   = %q{API for PhoneBurner.com}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/dennis27/phoneburner"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
