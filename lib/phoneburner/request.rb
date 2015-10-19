@@ -42,7 +42,7 @@ module Phoneburner
 
     def create(obj_or_hash_or_json)      
       Phoneburner::Response.new(self) do
-        RestClient.post "#{@url}#{@model.path}", as_json(obj_or_hash_or_json), {:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json}
+        RestClient::Request.execute({:timeout=>60, :open_timeout=>60, :method => :post, :url=>"#{@url}#{@model.path}", :payload=>as_json(obj_or_hash_or_json), :headers=>{:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json})
       end
     end
 
