@@ -1,3 +1,3 @@
 module Phoneburner
-  VERSION = "0.0.1"
+  VERSION = "0.0.5.pre2"
 end

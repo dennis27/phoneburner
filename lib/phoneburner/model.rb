@@ -2,14 +2,14 @@ module Phoneburner
   class Model
 
     def initialize(client, attrs={})    
-      @client = client   
+      @client = client  
       attributes(attrs)
     end
 
     def attributes(attrs)
-      @attrs = Hash[attrs.map do |k, v| 
+      @attrs = Hash[attrs.map do |k, v|         
         if v.is_a?(Hash)
-          [k.to_s, Phoneburner::Model.new(client,v)]
+          [k.to_s, Phoneburner::Model.new(@client,v)]
         else
           [k.to_s, v]
         end
@@ -42,6 +42,7 @@ module Phoneburner
     end
 
     def method_missing(symbol,*args)
+      @attrs ||= {}
       if symbol.to_s.end_with?("=")        
         @attrs[symbol.to_s.gsub!(/=$/,'')] = args.first
       else
@@ -49,8 +50,8 @@ module Phoneburner
       end
     end
 
-    def to_json
-      @attrs.to_json
+    def to_json(a=nil)
+      @attrs.to_json(a)
     end
 
     def is_new?
@@ -87,7 +88,7 @@ module Phoneburner
   private
     def update_attributes(attrs)
       attrs.each do |k, v| 
-        @attrs[k.to_s] = v.is_a?(Hash) ? Phoneburner::Model.new(client,v)] : v
+        @attrs[k.to_s] = v.is_a?(Hash) ? Phoneburner::Model.new(client,v) : v
       end
       nil
     end

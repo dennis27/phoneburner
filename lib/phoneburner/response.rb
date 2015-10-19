@@ -66,7 +66,8 @@ module Phoneburner
       parse()
       return nil if @inner_results.nil?
       if @inner_results.is_a?(Array)
-        e = Enumerator.new do |y|
+        puts "Array"
+        e = Enumerator.new do |y|          
           @inner_results.each do |ir|
             obj = is_raw? ? ir : request.build(ir)
             y.yield(obj)
@@ -117,15 +118,18 @@ module Phoneburner
       return if !!@parsed
       @parsed = true
       r = @block.yield
-      json = JSON.parse(r.body)
-      @http_status = json["http_status"]
-      @status = json["status"]
-      @_results = request.model.extract_results(json,request)
-      @page_size = @_results["page_size"].to_i
-      @total_results = @_results["total_results"].to_i
-      @page = @_results["page"].to_i
-      @total_pages = @_results["total_pages"].to_i
-      @inner_results = request.model.extract_inner_results(@_results, request)
+      b=r.body
+      if !!b && b.size() > 3
+        json = JSON.parse(b)
+        @http_status = json["http_status"]
+        @status = json["status"]
+        @_results = request.model.extract_results(json,request)
+        @page_size = @_results["page_size"].to_i
+        @total_results = @_results["total_results"].to_i
+        @page = @_results["page"].to_i
+        @total_pages = @_results["total_pages"].to_i
+        @inner_results = request.model.extract_inner_results(@_results, request)
+      end
     end
 
     def inner_results

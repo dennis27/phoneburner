@@ -10,14 +10,15 @@ require "phoneburner/dialsession"
 require "phoneburner/folder"
 require "phoneburner/settings"
 require "phoneburner/voicemail"
+require "phoneburner/call"
 
 
 require "rest-client"
 
 module Phoneburner
   
-  def self.client(api_token)
-    Phoneburner::Client.new(api_token)
+  def self.client(api_token,opts={})
+    Phoneburner::Client.new(api_token,opts)
   end
   
 end

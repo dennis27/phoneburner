@@ -17,5 +17,15 @@ module Phoneburner
       self.user_id = i
     end
 
+    def self.extract_inner_results(results, request)
+      r = super(results,request)
+      if r.is_a?(Array)
+        if r.first.is_a?(Array)
+          r = r.flatten
+        end
+      end
+      r
+    end
+
   end
 end

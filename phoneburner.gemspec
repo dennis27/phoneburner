@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Dennis Vaughn"]
   spec.email         = ["dennis@rigpasolutions.com"]
   spec.summary       = %q{API for PhoneBurner.com}
-  spec.description   = %q{API for PhoneBurner.com}
+  spec.description   = %q{Simple wrapper around the API for PhoneBurner.com}
   spec.homepage      = "https://github.com/dennis27/phoneburner"
   spec.license       = "MIT"
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rest-client", "1.8.0"
+  spec.add_dependency 'rest-client', '~> 1.6', '>= 1.6.7'
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"

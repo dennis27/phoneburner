@@ -1,10 +1,12 @@
 module Phoneburner
   class Client
 
-    attr_accessor :token
+    attr_accessor :token, :url
 
-    def initialize(token) 
+    def initialize(token, opts={}) 
       @token = token
+      @url = opts[:url]
+      @url ||= "https://www.phoneburner.com"
     end
 
     def contacts

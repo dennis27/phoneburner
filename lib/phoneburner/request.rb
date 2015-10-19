@@ -5,7 +5,7 @@ module Phoneburner
       @model = model
       @client = client
       @token = client.token
-      @url = "https://www.phoneburner.com"
+      @url = client.url 
       @query_params = {}
     end
 
@@ -46,6 +46,12 @@ module Phoneburner
       end
     end
 
+    def create!(obj_or_hash_or_json)      
+      Phoneburner::Response.new(self) do
+        RestClient.post "#{@url}#{@model.path}", as_json(obj_or_hash_or_json), {:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json}
+      end.result
+    end
+
     def update(id,obj_or_hash_or_json)
       Phoneburner::Response.new(self) do
         RestClient.put "#{@url}#{@model.path}#{id}", as_json(obj_or_hash_or_json), {:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json}
@@ -56,6 +62,13 @@ module Phoneburner
       Phoneburner::Response.new(self) do
         RestClient.delete "#{@url}#{@model.path}#{id}", {:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json}
       end
+    end
+
+    def delete!(id)
+      Phoneburner::Response.new(self) do
+        RestClient.delete "#{@url}#{@model.path}#{id}", {:Authorization => "Bearer #{@token}",:content_type => :json, :accept => :json}
+      end.http_status
+      nil
     end
 
     def all()
